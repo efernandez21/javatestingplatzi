@@ -1,21 +1,27 @@
 package com.platzi.javatestingplatzi.util;
 
-//import static org.junit.jupiter.api.Assertions.*;
 
+//import static org.junit.Assert.*;
 /**
  * Clase para testeado de lo ya contruido, tenemos un main para la prueba del metodo aqui en la clase de test
  */
 public class StringUtilTest {
     public static void main(String[] args) {
         //Llamado a la funcion a probar
-        String result = StringUtil.repeat("hola",3);
+        //Usando el metodo creado sin el de Junit
+        assertEquals(StringUtil.repeat("hola",3),"holaholahola");
+        assertEquals(StringUtil.repeat("hola",1),"hola");
+    }
+
+    /**
+     * Autodefinicion del metodo assertEquals sin hacer uso del JUnit
+     * @param actual valor actual
+     * @param expected valor esperado o el correcto
+     */
+    private static void assertEquals(String actual, String expected) {
         //Comprobacion del resultado con el if
-        if (result.equals("holaholahola")){
-            System.out.println("OK");
-        }
-        String result2 = StringUtil.repeat("hola",1);
-        if (result2.equals("hola")){
-            System.out.println("OK");
+        if (!actual.equals(expected)){
+            throw new RuntimeException(actual +" is not Equal than "+expected);
         }
     }
 }
