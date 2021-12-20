@@ -28,4 +28,14 @@ public class PlayerTest {
         Player player = new Player(dice,3);
         assertTrue(player.play());
     }
+    @Test
+    public void loses_when_dice_number_is_equal(){
+        //Creo un Mock del dado osea un simulado
+        Dice dice = Mockito.mock(Dice.class);
+        //Simulamos el dado en este caso forzamos el resultado
+        Mockito.when(dice.roll()).thenReturn(3);
+
+        Player player = new Player(dice,3);
+        assertFalse(player.play());
+    }
 }
