@@ -2,6 +2,7 @@ package com.platzi.javatestingplatzi.movies.data;
 
 import com.platzi.javatestingplatzi.movies.model.Genre;
 import com.platzi.javatestingplatzi.movies.model.Movie;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -48,7 +49,30 @@ public class MovieRepositoryIntegrationTest {
         assertThat(movies,is(Arrays.asList(
                 new Movie(1, "Dark Knight", 152, Genre.ACTION) ,
                 new Movie(2, "Memento", 113, Genre.THRILLER) ,
-                new Movie(3, "Matrix", 136, Genre.ACTION)
+                new Movie(3, "Matrix", 136, Genre.ACTION),
+                new Movie(4,"Super 8",112,Genre.THRILLER)
         )));
     }
+
+    @Test
+    public void load_movie_by_id() {
+        Movie movie = movieRepository.findById(2L);
+        assertThat(movie, is(new Movie(2, "Memento", 113, Genre.THRILLER)));
+    }
+
+    @Test
+    public void insert_a_movie() {
+        //Update una movie
+        Movie movie = new Movie("Super 8",112,Genre.THRILLER);
+        movieRepository.saveOrUpdate(movie);
+        //Consulta de una pelicula
+        Movie movieFromDb = movieRepository.findById(4L);
+        assertThat(movieFromDb,is(new Movie(4,"Super 8",112,Genre.THRILLER)));
+    }
+    //Metodo que ese ejecuta despues de cada test expresado por el profesor, para borrar los datos de la base de datos
+    /*@After
+    public void tearDown() throws Exception {
+        final Statement s = dataSource.getConnection().createStatement();
+        s.execute("DROP ALL objects DELETE files");
+    }*/
 }
