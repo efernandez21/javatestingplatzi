@@ -68,17 +68,59 @@ public class MovieServiceTest {
     }
     @Test
     public void movies_by_duration() {
-        Collection<Movie> movies = movieService.findMoviesByDuration(119);
+        Collection<Movie> movies = movieService.findMoviesByDuration(120);
         List<Integer> movieIds = movies.stream().map(Movie::getId).collect(Collectors.toList());
         assertThat(movieIds, CoreMatchers.is(Arrays.asList(2,3,4,5,6)));
         //assertTrue(movies.stream().allMatch(movie -> movie.getMinutes() <= 119));
     }
-    /*
+    //Test a futuro para una negativa en la duracion
+    @Test(expected = IllegalArgumentException.class)
+    public void return_movies_by_negative_length(){
+        Collection<Movie> movies = movieService.findMoviesByDuration(-1);
+    }
     //Metodo para devolver los ids de una película ya filtrada
      private List<Integer> getMovieIds(Collection<Movie> movies) {
         List<Integer> getId = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
 
         return getId;
      }
-     */
+    //Test creados para el reto de busqueda por plantilla
+
+    @Test
+    public void return_movies_with_template_and_by_properties_duration_and_genre() {
+        assertThat(
+            getMovieIds(movieService.findMoviesByTemplatePrueba(
+                    new Movie(null, 150, Genre.ACTION))),
+                CoreMatchers.is(Arrays.asList(7)));
+
+    }
+
+    @Test
+    public void return_movies_with_template_and_by_properties_name_and_duration() {
+        assertThat(
+                getMovieIds(movieService.findMoviesByTemplatePrueba(
+                        new Movie("ome", 105, null))),
+                CoreMatchers.is(Arrays.asList(6)));
+    }
+
+    @Test
+    public void  return_movies_with_template_and_by_properties_name_and_genre() {
+        assertThat(
+                getMovieIds(movieService.findMoviesByTemplatePrueba(
+                        new Movie("ome", null,  Genre.COMEDY))),
+                CoreMatchers.is(Arrays.asList(3,6)));
+    }
+    @Test
+    public void  return_movies_with_template_and_by_properties_name_duration_and_genre() {
+        assertThat(
+                getMovieIds(movieService.findMoviesByTemplatePrueba(
+                        new Movie("me", 150,  Genre.THRILLER))),
+                CoreMatchers.is(Arrays.asList(2)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void return_IllegalArgumentException_because_all_properties_are_null() {
+        Collection<Movie> movies = movieService.findMoviesByTemplatePrueba(
+                new Movie(null, null,  null));
+    }
 }

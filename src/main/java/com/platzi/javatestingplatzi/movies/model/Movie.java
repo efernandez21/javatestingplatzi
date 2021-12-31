@@ -6,19 +6,19 @@ public class Movie {
 
     private Integer id;
     private String name;
-    private int minutes;
+    private Integer minutes;
     private Genre genre;
 
     /*
         Constructor para cuando no se tiene el identificador especificado
      */
-    public Movie(String name, int minutes, Genre genre) {
+    public Movie(String name, Integer minutes, Genre genre) {
         this(null, name, minutes, genre);
     }
     /*
         Constructor parametrizado con todos los parámetros de la clase disponibles
      */
-    public Movie(Integer id, String name, int minutes, Genre genre) {
+    public Movie(Integer id, String name, Integer minutes, Genre genre) {
         this.id = id;
         this.name = name;
         this.minutes = minutes;
@@ -33,7 +33,7 @@ public class Movie {
         return name;
     }
 
-    public int getMinutes() {
+    public Integer getMinutes() {
         return minutes;
     }
 

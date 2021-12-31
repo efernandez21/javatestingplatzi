@@ -44,7 +44,7 @@ public class MovieRepositoryIntegrationTest {
     @Test
     public void load_all_movies() throws SQLException {
 
-        //Carga de todas las peliculas
+        //Carga de todas las películas
         Collection<Movie> movies = movieRepository.findAll();
         assertThat(movies,is(Arrays.asList(
                 new Movie(1, "Dark Knight", 152, Genre.ACTION) ,
